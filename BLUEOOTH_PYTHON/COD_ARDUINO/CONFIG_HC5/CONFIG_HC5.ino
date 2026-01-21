@@ -1,0 +1,34 @@
+/*
+PARA LA CONFIGURACION DEL HC-05 PRIMERO TENEMOS QUE SACAR
+LA LINEA 5V DEL BT Y DEJAR PRESIONADO POR 5 SEGUNDOS EL BOTON DEL BT
+LUEGO VOLVEMOS A CONECTAR LA LINEA 5V Y DEBEMOS ABRIR LA VENTANA DEL MONITOR SERIAL
+Y ENVIAR LOS SIGUIENTES COMANDOS:
+AT+NAME?            //VERIFICAR NOMBRE ACTUAL
+AT+PIN?             //VERIFICAR PIN ACTUAL
+AT+ROLE?            //VERIFICAR MODO ACTUAL (1 MAESTRO/ 0 ESCLAVO)
+
+PARA MODIFICAR LOS PARAMETROS USAR:
+AT+NAME=TU_NOMBRE_BT   //CAMBIA EL NOMBRE DEL BT
+AT+PIN=1234            //CAMBIA EL PIN DE CONEXION
+AT+ROLE=1           //PONE EL BT EN MODO MAESTRO
+
+PARA REINICIAR Y VOLVER A MODO NORMAL
+AT+RESET
+*/
+
+#include <SoftwareSerial.h>
+SoftwareSerial miBT(10,11);
+
+void setup() {
+  Serial.begin(9600);
+  miBT.begin(38400);
+  Serial.println("Listo Arranque de BT");
+}
+
+void loop() {
+if (miBT.available()) //lee BT y envia a arduino
+  Serial.write(miBT.read());
+
+if(Serial.available())
+  miBT.write(Serial.read());//lee arduino y envia a BT  
+}
