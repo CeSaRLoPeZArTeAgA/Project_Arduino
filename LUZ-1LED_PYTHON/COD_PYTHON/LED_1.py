@@ -2,7 +2,7 @@
 import serial
 import time
 
-arduino=serial.Serial("COM1",9600)
+arduino=serial.Serial("COM6",9600)# COM1 PARA USO DEL PROTEUS
 time.sleep(2)
 
 print("Conexión establecida con Arduino")
